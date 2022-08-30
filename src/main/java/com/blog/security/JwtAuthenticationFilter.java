@@ -31,16 +31,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
 
-//      1. get token
-
         String requestToken = request.getHeader("Authorization");
-        Enumeration<String> headerNames = request.getHeaderNames();
-
-        while(headerNames.hasMoreElements())
-        {
-            System.out.println(headerNames.nextElement());
-        }
-        // Bearer 2352523sdgsg
 
         System.out.println(requestToken);
 
@@ -67,16 +58,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             System.out.println("Jwt token does not begin with Bearer");
         }
 
-        // once we get the token , now validate
-
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 
             UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
 
             if (this.jwtTokenHelper.validateToken(token, userDetails)) {
-                // shi chal rha hai
-                // authentication karna hai
-
                 UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
                         userDetails, null, userDetails.getAuthorities());
                 usernamePasswordAuthenticationToken
