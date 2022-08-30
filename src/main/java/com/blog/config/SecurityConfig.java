@@ -65,7 +65,6 @@ public class SecurityConfig {
                 .permitAll()
                 .antMatchers(HttpMethod.GET)
                 .permitAll()
-
                 .anyRequest().authenticated()
                 .and()
                 .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint)
